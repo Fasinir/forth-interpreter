@@ -1,0 +1,38 @@
+: save_num
+variable x x ! ;
+
+: jcompare
+j @ endj @ >= ;
+
+: check
+array_start j @ + @
+array_start j @ + 1 + @ > ;
+
+: swap_val
+array_start j @ + @
+array_start j @ + 1 + @
+array_start j @ + !
+array_start j @ + 1 + ! ;
+
+: inner
+size 1 - i - endj !
+0 j !
+jcompare
+begin
+check
+if swap_val then
+1 j +!
+jcompare
+until ;
+
+constant size
+variable temp
+temp 1 +
+constant array_start
+size 0 do save_num loop
+variable j
+variable endj
+
+size 1 - 0 do inner loop
+."SORTED: " cr
+size 0 do array_start i + @ . cr loop
